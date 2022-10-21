@@ -1,3 +1,75 @@
-[gd_scene format=3 uid="uid://c5uo4ukdvmdtx"]
+[gd_scene load_steps=7 format=3 uid="uid://c5uo4ukdvmdtx"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_tvnh6"]
+[ext_resource type="Texture2D" uid="uid://du81654elapyi" path="res://icon.svg" id="2_0h0fm"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_alvuw"]
+physical_keycode = 4194332
+
+[sub_resource type="Shortcut" id="Shortcut_3lspf"]
+events = [SubResource("InputEventKey_alvuw")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_e35sd"]
+physical_keycode = 4194333
+
+[sub_resource type="Shortcut" id="Shortcut_7sx4c"]
+events = [SubResource("InputEventKey_e35sd")]
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_tvnh6")
+metadata/_edit_lock_ = true
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(381, 516)
+texture = ExtResource("2_0h0fm")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(-113, 204)
+texture = ExtResource("2_0h0fm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="MenuButtons" type="VBoxContainer" parent="CanvasLayer/MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = -229.0
+offset_right = 285.0
+offset_bottom = 229.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostButton" type="Button" parent="CanvasLayer/MainMenu/MenuButtons"]
+layout_mode = 2
+offset_right = 570.0
+offset_bottom = 71.0
+theme_override_font_sizes/font_size = 45
+shortcut = SubResource("Shortcut_3lspf")
+text = "Host Multiplayer"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/MainMenu/MenuButtons"]
+layout_mode = 2
+offset_top = 75.0
+offset_right = 570.0
+offset_bottom = 146.0
+theme_override_font_sizes/font_size = 45
+shortcut = SubResource("Shortcut_7sx4c")
+text = "Join Multiplayer"
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/MenuButtons/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MenuButtons/JoinButton" to="." method="_on_join_button_pressed"]
