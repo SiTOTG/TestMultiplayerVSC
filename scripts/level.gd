@@ -25,8 +25,8 @@ func start_as_host():
 		func(id):
 			print(id, " connected to the server")
 	)
-	spawn_player()
-	
+
+	do_spawn_player("Player_1", 1)
 
 func start_as_client():
 	$CanvasLayer/MainMenu.visible = false
@@ -36,12 +36,18 @@ func start_as_client():
 	enet.connection_succeeded.connect(
 		func():
 			print("Successfully connected to server")
+			rpc_id(1, "spawn_player")
 	)
-	spawn_player()
 
-
+@rpc(any_peer, reliable)
 func spawn_player():
+	var id = multiplayer.get_remote_sender_id()
+	var pname = StringName("Player_" + str(id))
+	do_spawn_player(pname, id)
+
+func do_spawn_player(pname: StringName, id: int):
 	var player = Player.instantiate()
+	player.name = StringName(pname)
 	players.add_child(player)
 
 func _on_host_button_pressed():
@@ -50,3 +56,7 @@ func _on_host_button_pressed():
 
 func _on_join_button_pressed():
 	start_as_client()
+
+
+func _on_multiplayer_spawner_spawned(node):
+	print("Spawned new node...")

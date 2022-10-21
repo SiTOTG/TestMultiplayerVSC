@@ -41,7 +41,6 @@ grow_vertical = 2
 metadata/_edit_lock_ = true
 
 [node name="MenuButtons" type="VBoxContainer" parent="CanvasLayer/MainMenu"]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -55,7 +54,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HostButton" type="Button" parent="CanvasLayer/MainMenu/MenuButtons"]
-layout_mode = 2
 offset_right = 570.0
 offset_bottom = 71.0
 theme_override_font_sizes/font_size = 45
@@ -63,7 +61,6 @@ shortcut = SubResource("Shortcut_3lspf")
 text = "Host Multiplayer"
 
 [node name="JoinButton" type="Button" parent="CanvasLayer/MainMenu/MenuButtons"]
-layout_mode = 2
 offset_top = 75.0
 offset_right = 570.0
 offset_bottom = 146.0
@@ -71,5 +68,10 @@ theme_override_font_sizes/font_size = 45
 shortcut = SubResource("Shortcut_7sx4c")
 text = "Join Multiplayer"
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
+spawn_path = NodePath("../Players")
+
 [connection signal="pressed" from="CanvasLayer/MainMenu/MenuButtons/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MenuButtons/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
