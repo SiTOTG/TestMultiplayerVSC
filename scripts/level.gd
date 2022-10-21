@@ -18,11 +18,25 @@ func _ready():
 
 func start_as_host():
 	$CanvasLayer/MainMenu.visible = false
+	enet = ENetMultiplayerPeer.new()
+	enet.create_server(PORT)
+	multiplayer.multiplayer_peer = enet
+	enet.peer_connected.connect(
+		func(id):
+			print(id, " connected to the server")
+	)
 	spawn_player()
 	
 
 func start_as_client():
 	$CanvasLayer/MainMenu.visible = false
+	enet = ENetMultiplayerPeer.new()
+	enet.create_client(SERVER_IP, PORT)
+	multiplayer.multiplayer_peer = enet
+	enet.connection_succeeded.connect(
+		func():
+			print("Successfully connected to server")
+	)
 	spawn_player()
 
 
