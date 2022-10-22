@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 
+@onready var camera = $Camera2D
+
 func _ready():
 	set_multiplayer_authority(str(name).to_int())
 	if get_multiplayer_authority() == multiplayer.get_unique_id():

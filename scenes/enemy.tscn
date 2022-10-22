@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmdyjcrsrf0fq"]
+[gd_scene load_steps=6 format=3 uid="uid://cmdyjcrsrf0fq"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_3e6h0"]
 [ext_resource type="Texture2D" uid="uid://du81654elapyi" path="res://icon.svg" id="1_4v80j"]
@@ -6,7 +6,16 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jfmj"]
 size = Vector2(128, 128)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_r2hi4"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iw3yu"]
+radius = 385.064
+
 [node name="enemy" type="Area2D"]
+collision_layer = 2
 script = ExtResource("1_3e6h0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -15,3 +24,12 @@ texture = ExtResource("1_4v80j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5jfmj")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_r2hi4")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_iw3yu")

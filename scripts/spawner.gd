@@ -16,11 +16,13 @@ func _on_timer_timeout():
 	var players = players_parent.get_children()
 	if len(players) == 0:
 		return
-	var player: Player = players[0]
-	
+	if not multiplayer.get_unique_id() == 1:
+		return
+	var player: Player = players[randi_range(0, len(players)-1)]
+
 	var enemy = Enemy.instantiate()
 	enemy.target = player
 	var origin: Vector2 = player.position
 	var direction = Vector2.RIGHT.rotated(randf_range(0, 2*PI))
 	enemy.position = origin + direction*spawn_distance
-	enemies_parent.add_child(enemy)
+	enemies_parent.add_child(enemy, true)
