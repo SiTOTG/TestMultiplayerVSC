@@ -24,6 +24,13 @@ func start_as_host():
 		func(id):
 			print(id, " connected to the server")
 	)
+	enet.peer_disconnected.connect(
+		func(id):
+			for player in players.get_children():
+				if str(player.name) == str(id):
+					player.queue_free()
+					return
+	)
 
 	do_spawn_player("1", 1)
 
@@ -46,6 +53,8 @@ func spawn_player():
 
 func do_spawn_player(pname: StringName, id: int):
 	var player = Player.instantiate()
+	player.position.x += randi_range(-10, 10)
+	player.position.y += randi_range(-10, 10)
 	player.name = StringName(pname)
 	players.add_child(player)
 
