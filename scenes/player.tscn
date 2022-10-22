@@ -23,7 +23,6 @@ texture = ExtResource("2_qi44k")
 shape = SubResource("RectangleShape2D_o41xk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
 limit_smoothed = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

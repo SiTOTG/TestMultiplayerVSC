@@ -9,7 +9,6 @@ var enet: ENetMultiplayerPeer
 
 @onready var players = $Players
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	if "--server" in OS.get_cmdline_args():
 		start_as_host()
@@ -26,7 +25,7 @@ func start_as_host():
 			print(id, " connected to the server")
 	)
 
-	do_spawn_player("Player_1", 1)
+	do_spawn_player("1", 1)
 
 func start_as_client():
 	$CanvasLayer/MainMenu.visible = false
@@ -42,7 +41,7 @@ func start_as_client():
 @rpc(any_peer, reliable)
 func spawn_player():
 	var id = multiplayer.get_remote_sender_id()
-	var pname = StringName("Player_" + str(id))
+	var pname = StringName(str(id))
 	do_spawn_player(pname, id)
 
 func do_spawn_player(pname: StringName, id: int):
