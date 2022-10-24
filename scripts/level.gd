@@ -28,11 +28,19 @@ func start_as_host():
 		func(id):
 			for player in players.get_children():
 				if str(player.name) == str(id):
+					players.remove_child(player)
+					_reassign_targets_targeting_player(player)
 					player.queue_free()
 					return
 	)
 
 	do_spawn_player("1", 1)
+
+func _reassign_targets_targeting_player(player):
+	for enemy in $Enemies.get_children():
+		if enemy is Enemy and enemy.target == player:
+			var new_player = players.get_child(randi_range(0, players.get_child_count()-1))
+			enemy.target = new_player
 
 func start_as_client():
 	$CanvasLayer/MainMenu.visible = false

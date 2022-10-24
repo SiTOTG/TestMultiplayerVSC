@@ -1,6 +1,8 @@
+class_name Enemy
 extends Area2D
 
 const SPEED = 150
+
 
 @onready var player_detector: Area2D = $PlayerDetector
 
@@ -13,7 +15,6 @@ func _physics_process(delta):
 	if priority_target:
 		var direction = position.direction_to(priority_target.position)
 		velocity = direction * SPEED
-
 		position += velocity * delta
 
 func _find_priority_target():
@@ -29,7 +30,7 @@ func _find_priority_target():
 			return target
 		else:
 			return null
-	
+
 	var closest_player = _find_closest(players_detected)
 	return closest_player
 
