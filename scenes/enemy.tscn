@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmdyjcrsrf0fq"]
+[gd_scene load_steps=7 format=3 uid="uid://cmdyjcrsrf0fq"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_3e6h0"]
 [ext_resource type="Texture2D" uid="uid://du81654elapyi" path="res://icon.svg" id="1_4v80j"]
@@ -13,6 +13,9 @@ properties/0/sync = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iw3yu"]
 radius = 385.064
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lhqm0"]
+radius = 115.213
 
 [node name="enemy" type="Area2D"]
 collision_layer = 2
@@ -37,5 +40,12 @@ shape = SubResource("CircleShape2D_iw3yu")
 
 [node name="DamageCooldown" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+shape = SubResource("CircleShape2D_lhqm0")
 
 [connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]
