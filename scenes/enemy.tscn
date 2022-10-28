@@ -16,6 +16,7 @@ radius = 385.064
 
 [node name="enemy" type="Area2D"]
 collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_3e6h0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -33,3 +34,8 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 shape = SubResource("CircleShape2D_iw3yu")
+
+[node name="DamageCooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]

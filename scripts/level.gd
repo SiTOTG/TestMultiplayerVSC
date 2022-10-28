@@ -65,6 +65,7 @@ func do_spawn_player(pname: StringName, id: int):
 	player.position.y += randi_range(-10, 10)
 	player.name = StringName(pname)
 	players.add_child(player)
+	
 
 func _on_host_button_pressed():
 	start_as_host()

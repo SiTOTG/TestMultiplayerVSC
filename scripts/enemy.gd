@@ -5,6 +5,7 @@ const SPEED = 150
 
 
 @onready var player_detector: Area2D = $PlayerDetector
+@onready var damage_cooldown: Timer = $DamageCooldown
 
 var target: Player
 
@@ -16,10 +17,21 @@ func _physics_process(delta):
 		var direction = position.direction_to(priority_target.position)
 		velocity = direction * SPEED
 		position += velocity * delta
+	
+	if monitoring and has_overlapping_areas():
+		var player_hurtboxes = get_overlapping_areas()
+		for hurtbox in player_hurtboxes:
+			hurtbox = hurtbox as Hurtbox
+			if not hurtbox:
+				printerr("Enemy colliding with something other than a hurtbox.")
+				continue
+			hurtbox.apply_damage(20)
+			monitoring = false
+			damage_cooldown.start()
 
 func _find_priority_target():
 	var priority_target = target
-	
+
 	var main_target_is_valid := target and is_instance_valid(target)
 	if main_target_is_valid and player_detector.overlaps_body(target):
 		return target
@@ -43,3 +55,7 @@ func _find_closest(players: Array) -> Player:
 			min_distance = distance
 			closest_player = player
 	return closest_player
+
+
+func _on_damage_cooldown_timeout():
+	monitoring = true
