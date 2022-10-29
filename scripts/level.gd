@@ -10,7 +10,7 @@ var enet: ENetMultiplayerPeer
 @onready var players = $Players
 
 func _ready():
-	if "--server" in OS.get_cmdline_args():
+	if "--server" in OS.get_cmdline_args() or "--server-only" in OS.get_cmdline_args():
 		start_as_host()
 	if "--client" in OS.get_cmdline_args():
 		start_as_client()
@@ -33,8 +33,9 @@ func start_as_host():
 					player.queue_free()
 					return
 	)
-
-	do_spawn_player("1", 1)
+	
+	if not "--server-only" in OS.get_cmdline_args():
+		do_spawn_player("1", 1)
 
 func _reassign_targets_targeting_player(player):
 	for enemy in $Enemies.get_children():
