@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ce6nwfa82ojsn"]
+
+[node name="Projectiles" type="Node2D"]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/bullet.tscn")
+spawn_path = NodePath("..")

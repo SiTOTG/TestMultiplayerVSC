@@ -43,6 +43,10 @@ run/main_scene="res://level.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Projectiles="*res://scenes/Projectiles.tscn"
+
 [display]
 
 window/size/viewport_width=1920

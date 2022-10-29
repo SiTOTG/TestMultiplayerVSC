@@ -15,10 +15,12 @@ func _physics_process(delta):
 		velocity = direction * speed * delta
 		sprite.look_at(target.global_position)
 		global_position += velocity
-	else:
+	elif multiplayer and multiplayer.is_server():
 		queue_free()
 
 func _on_area_entered(area):
 	if is_instance_valid(target) and target.has_method("apply_damage"):
 		target.apply_damage(damage)
-	queue_free()
+	
+	if multiplayer and multiplayer.is_server():
+		queue_free()

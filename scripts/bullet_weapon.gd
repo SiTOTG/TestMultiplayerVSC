@@ -6,6 +6,8 @@ const bullet_scene: PackedScene = preload("res://scenes/bullet.tscn")
 
 
 func _on_bullet_cooldown_timer_timeout():
+	if not multiplayer or not multiplayer.is_server():
+		return
 	var overlap = enemy_detector.get_overlapping_areas()
 	if len(overlap) > 0:
 		var target: Enemy = overlap[0]
@@ -13,4 +15,4 @@ func _on_bullet_cooldown_timer_timeout():
 		bullet.target = target
 		bullet.global_position = global_position
 		bullet.damage = damage
-		get_tree().root.add_child(bullet)
+		Projectiles.add_child(bullet, true)
