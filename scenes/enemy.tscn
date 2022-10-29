@@ -10,6 +10,9 @@ size = Vector2(128, 128)
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/sync = true
+properties/1/path = NodePath(".:hp")
+properties/1/spawn = true
+properties/1/sync = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iw3yu"]
 radius = 385.064
@@ -48,4 +51,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
 shape = SubResource("CircleShape2D_lhqm0")
 
+[node name="HPBar" type="ProgressBar" parent="."]
+offset_left = -65.0
+offset_top = -105.0
+offset_right = 67.0
+offset_bottom = -78.0
+
+[connection signal="die" from="." to="." method="_on_die"]
 [connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]

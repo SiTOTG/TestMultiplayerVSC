@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://diiqy118por32"]
+[gd_scene load_steps=8 format=3 uid="uid://diiqy118por32"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qf28s"]
 [ext_resource type="Texture2D" uid="uid://du81654elapyi" path="res://icon.svg" id="2_qi44k"]
 [ext_resource type="Script" path="res://scripts/Hurtbox.gd" id="3_hhafs"]
+[ext_resource type="PackedScene" uid="uid://l6qj0llkqyv5" path="res://scenes/bullet_weapon.tscn" id="4_o335q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o41xk"]
 size = Vector2(126, 126)
@@ -40,6 +41,7 @@ offset_left = -103.0
 offset_top = -97.0
 offset_right = 107.0
 offset_bottom = -70.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
 modulate = Color(1, 0.278431, 0.345098, 1)
@@ -49,5 +51,9 @@ script = ExtResource("3_hhafs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_x3b06")
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[node name="bullet_weapon" parent="Weapons" instance=ExtResource("4_o335q")]
 
 [connection signal="take_damage" from="Hurtbox" to="." method="_on_hurtbox_take_damage"]

@@ -4,13 +4,32 @@ extends Area2D
 const SPEED = 150
 const AVOID_FORCE = 20
 
+signal die
+
+@export_range(1, 1000) var max_hp = 400
+@export_range(0, 1000) var hp = 400:
+	get:
+		return hp
+	set(value):
+		if hp_bar:
+			value = clampi(value, 0, max_hp)
+			hp_bar.value = value
+			hp = value
+			if value == 0:
+				die.emit()
+
 @onready var player_detector: Area2D = $PlayerDetector
 @onready var enemy_detector: Area2D = $EnemyDetector
 @onready var damage_cooldown: Timer = $DamageCooldown
+@onready var hp_bar: ProgressBar = $HPBar
 
 var target: Player
 
 var velocity := Vector2.ZERO
+
+func _ready():
+	hp_bar.max_value = max_hp
+	hp_bar.value = hp
 
 func _physics_process(delta):
 	var priority_target = _find_priority_target()
@@ -71,3 +90,11 @@ func _find_closest(players: Array) -> Player:
 
 func _on_damage_cooldown_timeout():
 	monitoring = true
+
+func apply_damage(damage: int):
+	self.hp -= damage
+
+
+func _on_die():
+	if is_instance_valid(self) and multiplayer and multiplayer.is_server():
+		queue_free()

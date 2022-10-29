@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://l6qj0llkqyv5"]
+
+[ext_resource type="Script" path="res://scripts/bullet_weapon.gd" id="1_2fm74"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5a41p"]
+radius = 674.003
+
+[node name="bullet_weapon" type="Node2D"]
+script = ExtResource("1_2fm74")
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+shape = SubResource("CircleShape2D_5a41p")
+
+[node name="BulletCooldownTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="BulletCooldownTimer" to="." method="_on_bullet_cooldown_timer_timeout"]
