@@ -33,7 +33,7 @@ func start_as_host():
 					player.queue_free()
 					return
 	)
-	
+
 	if not "--server-only" in OS.get_cmdline_args():
 		do_spawn_player("1", 1)
 
