@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qf28s"]
 [ext_resource type="Texture2D" uid="uid://du81654elapyi" path="res://icon.svg" id="2_qi44k"]
 [ext_resource type="Script" path="res://scripts/Hurtbox.gd" id="3_hhafs"]
-[ext_resource type="PackedScene" uid="uid://l6qj0llkqyv5" path="res://scenes/bullet_weapon.tscn" id="4_o335q"]
+[ext_resource type="PackedScene" uid="uid://l6qj0llkqyv5" path="res://scenes/bullet_weapon.tscn" id="4_4vtdk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o41xk"]
 size = Vector2(126, 126)
@@ -54,6 +54,10 @@ shape = SubResource("RectangleShape2D_x3b06")
 
 [node name="Weapons" type="Node2D" parent="."]
 
-[node name="bullet_weapon" parent="Weapons" instance=ExtResource("4_o335q")]
+[node name="bullet_weapon" parent="Weapons" instance=ExtResource("4_4vtdk")]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/pulse_weapon.tscn", "res://scenes/bullet_weapon.tscn")
+spawn_path = NodePath("../Weapons")
 
 [connection signal="take_damage" from="Hurtbox" to="." method="_on_hurtbox_take_damage"]

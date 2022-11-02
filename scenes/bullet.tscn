@@ -15,6 +15,7 @@ properties/0/sync = true
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_kllnx")
+speed = 360
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_t63wn")

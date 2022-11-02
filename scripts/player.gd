@@ -19,6 +19,8 @@ signal die
 
 @onready var camera = $Camera2D
 @onready var hp_bar: ProgressBar = $HPBar
+@onready var weapons = $Weapons
+
 
 func _ready():
 	set_multiplayer_authority(str(name).to_int())
@@ -37,6 +39,17 @@ func _physics_process(delta):
 			velocity = Vector2.ZERO
 		move_and_slide()
 
-
 func _on_hurtbox_take_damage(damage):
 	self.hp = self.hp - damage
+
+func pickup(weapon_scene_file: String):
+	if multiplayer and multiplayer.is_server():
+		rpc.call("add_weapon", weapon_scene_file)
+
+@rpc(call_local, reliable, any_peer)
+func add_weapon(weapon_scene_file: String):
+	var weapon_scene: PackedScene = load(weapon_scene_file)
+	var weapon: Weapon = weapon_scene.instantiate() as Weapon
+	if not weapon:
+		return
+	weapons.add_child(weapon, true)

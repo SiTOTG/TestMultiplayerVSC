@@ -1,12 +1,40 @@
-[gd_scene load_steps=3 format=3 uid="uid://ng16xe4vtdbd"]
+[gd_scene load_steps=10 format=3 uid="uid://ng16xe4vtdbd"]
 
 [ext_resource type="Script" path="res://scripts/pulse_weapon.gd" id="1_ybv5r"]
+[ext_resource type="Texture2D" uid="uid://c0d8y77bbkfoo" path="res://assets/ring_of_fire_icon.png" id="2_1tngg"]
+[ext_resource type="Texture2D" uid="uid://bpt00ibhl4ut0" path="res://assets/ring_of_fire.png" id="2_soxaf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4nac"]
 radius = 329.006
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ut7oh"]
+atlas = ExtResource("2_soxaf")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rk43"]
+atlas = ExtResource("2_soxaf")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1la7w"]
+atlas = ExtResource("2_soxaf")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8qpp"]
+atlas = ExtResource("2_soxaf")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rfqw3"]
+animations = [{
+"frames": [SubResource("AtlasTexture_ut7oh"), SubResource("AtlasTexture_1rk43"), SubResource("AtlasTexture_1la7w"), SubResource("AtlasTexture_i8qpp")],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="pulse_weapon" type="Node2D"]
 script = ExtResource("1_ybv5r")
+damage = 220.0
+icon = ExtResource("2_1tngg")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -17,5 +45,10 @@ shape = SubResource("CircleShape2D_g4nac")
 
 [node name="DamageCooldownTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(10.8438, 10.8438)
+frames = SubResource("SpriteFrames_rfqw3")
+playing = true
 
 [connection signal="timeout" from="DamageCooldownTimer" to="." method="_on_damage_cooldown_timer_timeout"]

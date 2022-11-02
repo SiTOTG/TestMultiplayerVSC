@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5uo4ukdvmdtx"]
+[gd_scene load_steps=9 format=3 uid="uid://c5uo4ukdvmdtx"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_tvnh6"]
 [ext_resource type="Texture2D" uid="uid://du81654elapyi" path="res://icon.svg" id="2_0h0fm"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="2_5awi3"]
+[ext_resource type="PackedScene" uid="uid://si5j3depc610" path="res://scenes/pulse_weapon_pickup.tscn" id="4_oq1pw"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_alvuw"]
 physical_keycode = 4194332
@@ -86,6 +87,9 @@ offset_bottom = 146.0
 theme_override_font_sizes/font_size = 45
 shortcut = SubResource("Shortcut_7sx4c")
 text = "Join Multiplayer"
+
+[node name="pulse_weapon_pickup" parent="." instance=ExtResource("4_oq1pw")]
+position = Vector2(218.573, 172.767)
 
 [connection signal="spawned" from="PlayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
 [connection signal="timeout" from="Enemies/Spawner/Timer" to="Enemies/Spawner" method="_on_timer_timeout"]

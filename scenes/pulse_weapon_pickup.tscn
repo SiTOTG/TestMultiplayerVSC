@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://si5j3depc610"]
+
+[ext_resource type="Texture2D" uid="uid://c0d8y77bbkfoo" path="res://assets/ring_of_fire_icon.png" id="1_4tvex"]
+[ext_resource type="Script" path="res://scripts/pulse_weapon_pickup.gd" id="1_x2whe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvyf7"]
+radius = 44.1022
+
+[node name="pulse_weapon_pickup" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_x2whe")
+weapon_scene_file = "res://scenes/pulse_weapon.tscn"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_4tvex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pvyf7")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
